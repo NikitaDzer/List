@@ -3,7 +3,6 @@
 
 #include <cstdint>
 
-//#define LIST_DEBUG
 #define LIST_ANTI_FOOL
 #define LIST_EXTENSIBLE
 #define LIST_LOGIC_INDEX

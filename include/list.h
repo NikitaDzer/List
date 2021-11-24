@@ -51,9 +51,6 @@ list_index_t list_popBack(List *const p_list, list_item_t *const p_output);
 
 list_index_t list_popFront(List *const p_list, list_item_t *const p_output);
 
-
-//void         list_dump(const List *const p_list);
-
 #ifdef    LIST_LOGIC_INDEX
 list_index_t list_sort_XXX_THE_FASTEST_SORT_IN_THE_WORLD(List *const p_list);
 
