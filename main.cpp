@@ -8,9 +8,9 @@ int main()
    list_item_t item = 0;
    List list        = {0};
    
+   list_pushBack(&list, 100);
    list_construct(&list, 8);
 
-   list_pushBack(&list, 100);
    list_pushBack(&list, 200);
    list_pushBack(&list, 300);
    
@@ -27,6 +27,9 @@ int main()
    list_pushFront(&list, 700);
    
    list_dump(&list);
+   list_sort_XXX_THE_FASTEST_SORT_IN_THE_WORLD(&list);
+   list_dump(&list);
+   
    
    list_destruct(&list);
    

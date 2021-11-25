@@ -157,17 +157,17 @@ void list_dump(const List *const p_list)
    fprintf(stream,
            "\t\t<hr width = '100%' >                                     \n"
            "\t\t<div class = 'list'>                                     \n"
-           "\t\t<pre>List address: %p</pre>                              \n"
+           "\t\t\t<pre>List address: %p</pre>                            \n"
            #ifdef    LIST_LOGIC_INDEX
-           "\t\t<pre>Shift:        %lld</pre>                            \n"
+           "\t\t\t<pre>Shift:        %lld</pre>                          \n"
            #endif // LIST_LOGIC_INDEX
-           "\t\t<pre>Capacity:     %lld</pre>                            \n"
-           "\t\t<pre>Size:         %lld</pre>                            \n"
-           "\t\t<pre>Free:         %lld</pre>                            \n"
-           "\t\t<pre>NODS:         %p</pre>                              \n"
+           "\t\t\t<pre>Capacity:     %lld</pre>                          \n"
+           "\t\t\t<pre>Size:         %lld</pre>                          \n"
+           "\t\t\t<pre>Free:         %lld</pre>                          \n"
+           "\t\t\t<pre>NODS:         %p</pre>                            \n"
            "\t\t</div>                                                   \n"
-           "\t\t<div class = 'img'>"
-           "\t\t<img src = \"%s\" height = 500px>                        \n"
+           "\t\t<div class = 'img'>                                      \n"
+           "\t\t\t<img src = \"%s\" height = 500px>                      \n"
            "\t\t</div>                                                   \n",
            
            p_list,
