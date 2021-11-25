@@ -87,8 +87,7 @@ void list_dump(const List *const p_list)
                "\tnode[shape = box, style = \"filled\", penwidth = 2, color = \"#333333\", margin = 0.04,      \n"
                "\tfontcolor = \"white\", fontsize = 8, fillcolor = \"#666666\", fontname = \"Consolas\"]       \n"
                "\tedge[arrowsize = 0.7, style = solid, penwidth = 1.1]                                         \n"
-               "\t0",
-               nodes[0].next, nodes[0].prev);
+               "\t0");
    
    for (list_index_t i = 1; i < p_list->capacity; i++)
       fprintf(dotfile, " -> %lld", i);
