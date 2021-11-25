@@ -131,8 +131,14 @@ static index_t verify_list(const List *const p_list)
    if (p_list->nodes == nullptr)
       return LIST_FAULT;
    
+   if (p_list->capacity == 0)
+      return LIST_FAULT;
+   
+   if (p_list->nodes[0].item != 0)
+      return LIST_FAULT;
+   
    if ( !(check_list_cycle(p_list, LIST_DIRECTION_FORWARD)  == LIST_OK_CYCLE
-          && check_list_cycle(p_list, LIST_DIRECTION_BACKWARD) == LIST_OK_CYCLE))
+       && check_list_cycle(p_list, LIST_DIRECTION_BACKWARD) == LIST_OK_CYCLE))
       return LIST_FAULT;
    
    return 0;
@@ -146,18 +152,6 @@ index_t list_construct(List *const p_list, const index_t n_items)
 {
    #ifdef    LIST_ANTI_FOOL
    if (p_list == nullptr)
-      return LIST_FAULT;
-   
-   if (p_list->nodes != nullptr)
-      return LIST_FAULT;
-   
-   if (p_list->size != 0)
-      return LIST_FAULT;
-   
-   if (p_list->capacity != 0)
-      return LIST_FAULT;
-   
-   if (p_list->free != 0)
       return LIST_FAULT;
    
    #ifdef   LIST_LOGIC_INDEX
