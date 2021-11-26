@@ -3,4 +3,4 @@ project(List)
 
 set(CMAKE_CXX_STANDARD 20)
 
-add_executable(List main.cpp src/list.cpp include/list.h include/config.h src/dump.cpp include/dump.h)
+add_executable(List main.cpp ../akinator/list/src/list.cpp ../akinator/list/include/list.h ../akinator/list/include/config.h ../akinator/list/src/dump.cpp ../akinator/list/include/dump.h)
