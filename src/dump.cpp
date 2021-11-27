@@ -71,9 +71,8 @@ void list_dump(const List *const p_list)
 {
    assert(p_list);
    
-   const char            dotfile_path[100] = "dotfile.txt";
    const ListNode *const nodes             = p_list->nodes;
-   FILE           *const dotfile           = fopen(dotfile_path, "w");
+   FILE           *const dotfile           = fopen(LIST_DOTFILE_PATH, "w");
    
    assert(dotfile);
    
@@ -147,7 +146,7 @@ void list_dump(const List *const p_list)
    char system_cmd[128] = "dot ";
    
    sprintf(png_path,  "%zu.png", n_dumps);
-   strcat(system_cmd, dotfile_path);
+   strcat(system_cmd, LIST_DOTFILE_PATH);
    strcat(system_cmd, " -Tpng -o ");
    strcat(system_cmd, png_path);
    

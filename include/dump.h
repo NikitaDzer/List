@@ -7,6 +7,8 @@
 
 #include "list.h"
 
+const char LIST_DOTFILE_PATH[100] = "dotfile.txt";
+
 void list_dump_init();
 
 void list_dump(const List *const p_list);

@@ -27,6 +27,25 @@ static inline bool is_in_range(const index_t index, const index_t capacity)
    return 0 <= index && index <= (capacity - 1);
 }
 
+static inline void fill_free(List *const p_list)
+{
+   assert(p_list);
+   
+   ListNode     *const nodes    = p_list->nodes;
+   const size_t        capacity = p_list->capacity;
+   
+   for (index_t i = p_list->size + LIST_DEFAULT_SHIFT; i < capacity - 1; i++)
+   {
+      nodes[i].item =  0;
+      nodes[i].next =  i + 1;
+      nodes[i].prev = -1;
+   }
+   
+   nodes[capacity - 1].item =  0;
+   nodes[capacity - 1].next =  LIST_NO_FREE;
+   nodes[capacity - 1].prev = -1;
+}
+
 static index_t get_free(List *const p_list)
 {
    if (p_list->free >= 1)
@@ -42,17 +61,10 @@ static index_t get_free(List *const p_list)
    
    p_list->nodes = (ListNode *)realloc(p_list->nodes, p_list->capacity * sizeof(ListNode));
    
+   fill_free(p_list);
+   
    if (p_list->nodes == nullptr)
       return LIST_FAULT;
-   
-   for (index_t i = p_list->size + LIST_DEFAULT_SHIFT; i < p_list->capacity; i++)
-   {
-      p_list->nodes[i].item =  0;
-      p_list->nodes[i].next =  i + 1;
-      p_list->nodes[i].prev = -1;
-   }
-   
-   p_list->nodes[p_list->capacity - 1].next = LIST_NO_FREE;
    
    return p_list->size + 1;
 }
@@ -321,7 +333,7 @@ index_t list_insertBefore(List *const p_list, const item_t item, const index_t i
    
    p_list->size += 1;
    p_list->free  = nextFree;
-
+   
    #ifdef    LIST_LOGIC_INDEX
    if (p_list->shift >= 2)
    {
@@ -565,15 +577,23 @@ index_t list_sort_XXX_THE_FASTEST_SORT_IN_THE_WORLD(List *const p_list)
    {
       ListNode *const nodes = p_list->nodes;
       
-      for (index_t logicIndex = 0, physIndex = nodes[0].next;
-           logicIndex < p_list->size;
-           logicIndex++)
+      for (index_t shiftedIndex = 0 + LIST_DEFAULT_SHIFT, physIndex = nodes[0].next;
+           shiftedIndex <= p_list->size;
+           shiftedIndex++)
       {
-         if (logicIndex + 1 != physIndex)
-            swap_nodes(nodes, logicIndex + 1, physIndex);
+         if (nodes[shiftedIndex].prev == -1)
+         {
+            nodes[shiftedIndex]                    = nodes[physIndex];
+            nodes[ nodes[shiftedIndex].next ].prev = shiftedIndex;
+            nodes[ nodes[shiftedIndex].prev ].next = shiftedIndex;
+         }
+         else if (shiftedIndex != physIndex)
+            swap_nodes(nodes, shiftedIndex, physIndex);
          
-         physIndex = nodes[logicIndex + 1].next;
+         physIndex = nodes[shiftedIndex].next;
       }
+   
+      fill_free(p_list);
       
       p_list->shift = 1;
    }
